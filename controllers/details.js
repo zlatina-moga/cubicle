@@ -1,15 +1,12 @@
 module.exports = {
     details: async (req, res) => {
-        const cube = await req.storage.getById(req.params.id)
+        const id = req.params.id;
+        const cube = await req.storage.getById(id);
 
         if (cube == undefined){
-            res.redirect('/404');
+            res.redirect('/404')
         } else {
-            const ctx = {
-                title: 'Cubicle',
-                cube
-            };
-            res.render('details', ctx)
+            res.render('details', cube)
         }
     }
 }
