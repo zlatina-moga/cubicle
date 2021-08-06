@@ -260,3 +260,9 @@ footer {
         opacity: 0;
     }
 }
+
+
+.cube-description {
+    display: none;
+    padding: 10px;
+}
