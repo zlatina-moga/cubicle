@@ -1,6 +1,6 @@
 module.exports = {
     create: (req, res) => {
-        res.render('create',  {title: 'Create Cube'})
+        res.render('create', {title: 'Create cube'})
     },
     post: async (req, res) => {
         const cube = {
@@ -8,9 +8,16 @@ module.exports = {
             description: req.body.description,
             imageUrl: req.body.imageUrl,
             difficulty: Number(req.body.difficulty)
-        }
+        };
 
-        await req.storage.create(cube)
+        try {
+            await req.storage.create(cube);
+            
+        } catch (err){
+            if (err.name == 'ValidationError') {
+                return res.render('create', {title: 'Create cube', error: 'All fields are required. Image URL must be a valid URL.'})
+            }
+        }
         res.redirect('/')
     }
 }
